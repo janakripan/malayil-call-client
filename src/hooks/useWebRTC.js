@@ -29,8 +29,9 @@ export function useWebRTC(username) {
   useEffect(() => {
     if (!username) return;
 
-    // Connect to the proxy socket (which forwards to 5000)
-    const socketInstance = io({
+    const serverUrl = import.meta.env.VITE_SERVER_URL || '';
+    // Connect to the socket server
+    const socketInstance = io(serverUrl, {
       autoConnect: true,
       reconnection: true
     });

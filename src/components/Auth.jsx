@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Phone, Lock, User, AtSign, ArrowRight, MessageSquare, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || '';
+
 export function Auth({ onLoginSuccess }) {
   // Steps: 'phone' | 'otp' | 'register'
   const [step, setStep] = useState('phone');
@@ -37,7 +39,7 @@ export function Auth({ onLoginSuccess }) {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/request-otp', {
+      const response = await fetch(`${SERVER_URL}/api/auth/request-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber: phoneNumber.trim() })
@@ -70,7 +72,7 @@ export function Auth({ onLoginSuccess }) {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/verify-otp', {
+      const response = await fetch(`${SERVER_URL}/api/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber: phoneNumber.trim(), otp: otp.trim() })
@@ -116,7 +118,7 @@ export function Auth({ onLoginSuccess }) {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch(`${SERVER_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
